@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #1F2937;
+}
+
+#top-bar-container{
+    background-color: #7F1D1D;
+    height: 7.8vh;
+    width: auto;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.admin-header-right-container a, .admin-header-left-container a{
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+.header-right-container a:hover{
+    /* color: #111827; */
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+#left-sidebar-container{
+    display: flex;
+    gap: 10px;
+    margin: 0 20px 0 0;
+    color: white;
+}
+
+#main-sidebar-container{
+    width:310px ;
+    height: 92.2vh;
+    border-radius: 0 0 4px 0;
+    background-color: #111827;
+
+}
+
+.sidebar-content{
+    margin: 20px 20px;
+    /* border: 1px solid white; */
+    height: 400px;
+}
+
+.sidebar-content a{
+    margin: 10px 0;
+    display: block;
+    padding: 12px 5px;
+    font-size: 16px;
+    border-left: 3px solid transparent;
+    border-radius: 0 0 2px 2px;
+    color: white;
+    text-decoration: none;
+    transition-duration: 300ms;
+}
+.sidebar-content a:hover{
+    cursor: pointer;
+    border-left: 3px solid #7F1D1D;
+    background-color: #1F2937;
+}
+
+#main-content-container{
+    margin: 10px 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #475569;
+    width: 100%;
+    height: 87vh;
+    overflow:hidden;
+    overflow-y: auto;
+    scrollbar-color: transparent transparent ;
+    scrollbar-width:none;
+}
+/* admin pannel css starts here */
+
+#admin-pannel-container{
+    /* border: 1px solid blue; */
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.admin-pannel-main{
+    /* border: 1px solid orange; */
+    padding: 12px;
+    width: 940px;
+}
+.admin-pannel-upper-section{
+    height: 40px;
+    width: 940px;
+    border-radius:20px ;
+    border: 1px solid #475569;
+}
+
+.admin-pannel-upper-section h2{
+    text-align: center;
+}
+
+/* admin pannel bottom section */
+.admin-pannel-bottom-section{
+    /* border: 1px solid blueviolet; */
+    margin-top: 20px;
+}
+
+.admin-bottom-main-container{
+    display: flex;
+    gap: 20px;
+}
+.admin-bottom-main-container .admin-bottom-item-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    width: 450px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #475569;
+}
+.admin-bottom-main-container h3 {
+    font-size: 40px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+.admin-bottom-main-container h3 , .admin-bottom-main-container p{
+    text-align: center;
+}
+/* admin pannel css ends here */

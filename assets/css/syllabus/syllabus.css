@@ -1,0 +1,58 @@
+.syllabus-container{
+    /* border: 1px solid white; */
+    margin: 2% 10%;
+    padding: 12px;
+    color: white;
+}
+
+.syllabus-title{
+    /* border: 1px solid orange; */
+    margin: 12px 0;
+}
+.syllabus-title h2{
+    color: #929bad;
+}
+.syllabus-title p{
+    color: #929bad;
+    text-align: justify;
+    font-size: 18px;
+    margin: 20px 0;
+    font-weight: 300;
+}
+
+.syllabus-table-content-wraper{
+    /* border: 1px solid #6b7280; */
+    padding: 12px;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+#table-contents-main{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 40px;
+
+    
+}
+.table-content,td{
+    border: 1px solid #1F2937;
+    color: #929bad;
+    border-radius: 8px;
+}
+.table-content{
+    border-collapse: collapse;
+    /* border: 1px solid green; */
+    /* margin: 10px 0; */
+}
+
+.table-content td{
+    padding: 2px;
+}
+
+.table-semester-top-css{
+    text-align: center;
+    height: 40px;
+    padding: 10px 0;
+    background-color: #1b1127;
+    font-size: 16px;
+}
