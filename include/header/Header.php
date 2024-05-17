@@ -18,8 +18,8 @@ require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
                 <li><a href="<?= url('/pages/community/communitypage.php') ?>">Community</a></li>
                 <li><a href="<?= blog_url('/blogpage.php') ?>">Blogs</a></li>
                 <li><a href="<?= notes_url('/syllabus/syllabus.php') ?>">Syllabus</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="<?= url('/pages/aboutus/AboutUs.php') ?>">About Us</a></li>
+                <li><a href="<?= url('/pages/contactus/ContactUs.php') ?>">Contact Us</a></li>
             </ul>
         </div>
         <?php if (isset($_COOKIE['user_cookie'])) {

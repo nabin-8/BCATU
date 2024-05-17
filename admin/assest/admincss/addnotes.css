@@ -1,0 +1,56 @@
+.add-notes-main{
+    /* border: 1px solid blue; */
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-notes-input-container .add-notes-input, .add-notes-input-container select, .add-notes-input-container textarea{
+    min-width: 800px;
+    height: 38px;
+    margin: 10px 0;
+    border: none;
+    padding-left: 8px;
+    border-radius: 4px;
+    color: rgb(167, 161, 161);
+    background-color: #111827;
+}
+.add-notes-input-container textarea{
+    height: 150px;
+    resize: none;
+}
+
+.submit-notes-files-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+    color: rgb(167, 161, 161);
+    /* border: 1px solid red; */
+}
+
+.submit-btn-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+#submit_btn{
+    margin: 20px 0;
+    border: none;
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #7F1D1D;
+}
+
+#submit_btn:hover{
+    background-color: #991b1b;
+}
+
+
+textarea:focus, input:focus, select:focus{
+    outline: none;
+}

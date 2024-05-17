@@ -11,7 +11,7 @@ if (
     isset($_FILES['image']) && $_FILES['image']['name'] !== ''
 ) {
 
-    $query = "SELECT * FROM blog_categories_tb WHERE blog_cat_id = ?;"; // Changed table name and column name
+    $query = "SELECT * FROM blog_categories_tb WHERE blog_cat_id = ?;";
     $statement = $pdo->prepare($query);
     $statement->execute([$_POST['cat_id']]);
     $category = $statement->fetch();

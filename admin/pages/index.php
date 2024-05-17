@@ -110,11 +110,20 @@ require_once '../../config/pdo_connection.php';
                             </div>
                             <div class="admin-bottom-item-container">
                                 <?php
-                                $query = "SELECT COUNT(*) AS total_notes FROM user_tb"; // corrected table name
+                                $query = "SELECT 'note' AS type, COUNT(*) AS total FROM notes_tb
+                                    UNION ALL
+                                    SELECT 'lab' AS type, COUNT(*) AS total FROM lab_tb
+                                    UNION ALL
+                                    SELECT 'presentation' AS type, COUNT(*) AS total FROM presentation_tb";
+
                                 $statement = $pdo->prepare($query);
                                 $statement->execute();
-                                $result = $statement->fetch(PDO::FETCH_ASSOC);
-                                $total_notes = $result['total_notes'];
+                                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                $total_notes = 0;
+                                foreach ($results as $result) {
+                                    // $type = ucfirst($result['type']); // Capitalize the first letter of the type
+                                    $total_notes += $result['total'];
+                                }
 
                                 if ($total_notes > 0) {
                                 ?>

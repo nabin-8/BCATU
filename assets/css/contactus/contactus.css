@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Poppins-Regular;
+    color: white;
+}
+
+/* input:focus, textarea:focus {
+    outline: none;
+} */
+
+.contact-heading {
+    font-family: Poppins-Bold;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-main {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url(font/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(font/Poppins/Poppins-Bold.ttf);
+}
+
+.contact-desc {
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    place-items: center;
+    gap: 1rem;
+}
+
+.contact-col-1 {
+    grid-column: 3 / span 4;
+}
+
+.contact-col-2 {
+    grid-column: 8 / span 5;
+}
+
+.contact-form {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr) auto auto;
+    gap: 1rem;
+}
+
+.contact-form-email, .contact-form-msg {
+    grid-column: span 12;
+}
+
+.contact-form-email, .contact-form-msg {
+    grid-column: 1 / span 2;
+}
+
+.contact-form-submit {
+    grid-column: 1 / span 1;
+}
+
+.contact-form-submit input[type="submit"] {
+    padding: 0.5rem;
+    width: 10vw;
+    font-size: 1rem;
+    background-color: #eee;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form-fname input, .contact-form-lname input {
+    width: 13.5vw;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.contact-form-email input{
+    width: 28vw;
+    font-size: 1rem;
+    padding: .5rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.contact-form-msg textarea {
+    width: 28vw;
+    font-family: Poppins-Regular;
+    padding: .5rem;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+}

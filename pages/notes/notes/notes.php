@@ -1,15 +1,6 @@
 <?php
 require_once 'C:/laragon/www/completeprojectbcatu/config/pdo_connection.php';
 require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
-
-$query = "SELECT user_tb.*, semester_tb.semester_name 
-          FROM user_tb 
-          JOIN semester_tb ON user_tb.semester_id = semester_tb.semester_id 
-          WHERE user_tb.user_id = ?";
-$statement = $pdo->prepare($query);
-$user_id = $_COOKIE['user_cookie'];
-$statement->execute([$user_id]);
-$user = $statement->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +9,7 @@ $user = $statement->fetch();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes | Syllabus</title>
+    <title>BCATU | Notes</title>
     <!-- <link rel="stylesheet" href="../../../assets/css/syllabus/syllabus.css"> -->
     <link rel="stylesheet" href="../../../assets/css/notes/note-sec.css">
     <link rel="stylesheet" href="../../../assets/css/header/header.css">
@@ -35,44 +26,30 @@ $user = $statement->fetch();
                 <input type="text" placeholder="Search notes,labes..." name="" id="">
             </div>
             <div class="notes-section-left-contents">
-                <select name="" id="">
-                    <optgroup label="Select Semester">
-                        <?php
-                        $query = "SELECT * FROM semester_tb;";
-                        $statement = $pdo->prepare($query);
-                        $statement->execute();
-                        $semesters = $statement->fetchAll();
-                        foreach ($semesters as $semester) : ?>
-                            <option value="<?= $semester->semester_id ?>" <?= $semester->semester_id === $user->semester_id ? 'selected' : '' ?>>
-                                <?= $semester->semester_name ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </optgroup>
+                <select name="semester" id="semester">
+                    <option value="">Select Semester</option>
+                    <?php
+                    $query = "SELECT * FROM semester_tb;";
+                    $statement = $pdo->prepare($query);
+                    $statement->execute();
+                    $semesters = $statement->fetchAll();
+                    foreach ($semesters as $semester) : ?>
+                        <option value="<?= $semester->semester_id ?>"> <?= $semester->semester_name ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="notes-section-left-contents">
-                <select name="" id="">
-                    <optgroup>
-                        <option value="">Note</option>
-                        <option value="">Lab</option>
-                        <option value="">Presentation</option>
-                    </optgroup>
+                <select name="notetype" id="notetype">
+                    <option value="">Select Note Type</option>
+                    <option value="notes_tb">Note</option>
+                    <option value="lab_tb">Lab</option>
+                    <option value="presentation_tb">Presentation</option>
                 </select>
             </div>
             <div class="notes-section-left-contents">
-                <select name="" id="">
-                    <optgroup label="Select Semester">
-                        <?php
-                        $query = "SELECT * FROM subject_tb;";
-                        $statement = $pdo->prepare($query);
-                        // $statement->execute([$user_id]);
-                        $statement->execute();
-                        $subjects = $statement->fetchAll();
-                        foreach ($subjects as $subject) : ?>
-                            <option value="<?= $subject->subject_id ?>"><?= $subject->subject_name ?></option>
-                            </option>
-                        <?php endforeach; ?>
-                    </optgroup>
+                <select name="subject" id="subject">
+                    <option value="">Select Subject</option>
                 </select>
             </div>
         </div>
@@ -80,8 +57,8 @@ $user = $statement->fetch();
         <div class="notes-section-right-bottom-wraper">
             <div class="notes-section-right-bottom-main">
                 <div class="notes-bottom-main-contents">
-                    <div class="note-bottom-sem-section">
-                        <img src="https://cdn.pixabay.com/photo/2020/05/01/14/15/music-sheet-5117328_1280.jpg" alt="img">
+                    <!-- <div class="note-bottom-sem-section">
+                        <img src="../../../assets/images/notes/bcatu.svg" alt="img">
                         <p>sem</p>
                     </div>
                     <div class="note-bottom-title-section">
@@ -91,7 +68,8 @@ $user = $statement->fetch();
                     <div class="note-bottom-note-type-section">
                         <p>Lab</p>
                         <p>CFA</p>
-                    </div>
+                    </div> -->
+                    <p>Search or Select Notes by Options</p>
                 </div>
             </div>
         </div>
@@ -99,6 +77,9 @@ $user = $statement->fetch();
     </section>
     <!-- footer -->
     <?php include 'C:/laragon/www/completeprojectbcatu/include/footer/Footer.php'; ?>
+
+    <script src="../../../assets/js/jquery.js"></script>
+    <script src="./notes.js"></script>
 </body>
 
 </html>
