@@ -2,6 +2,10 @@
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
 
+if (!isset($_COOKIE['user_cookie'])) {
+    redirect('/pages/auth/Login.php');
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
         $allowedMimes = ['png', 'jpg', 'jpeg', 'gif'];

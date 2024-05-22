@@ -2,6 +2,10 @@
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
 
+if (!isset($_COOKIE['user_cookie'])) {
+    redirect('/pages/auth/Login.php');
+}
+
 // Redirect if post_id is not set
 if (!isset($_GET['post_id'])) {
     redirect('/pages/dashboard/myblogs.php');

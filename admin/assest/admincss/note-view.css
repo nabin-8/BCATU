@@ -1,0 +1,60 @@
+.note-view-wraper-main{
+    /* border: 1px solid blue; */
+    /* height: 100vh; */
+}
+
+.note-view-main{
+    /* border: 1px solid orange; */
+    padding: 40px 10%;
+}
+
+.note-view-top-section{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    /* border: 1px solid blue; */
+    gap: 20px;
+    color: white;
+}
+.note-image-view-container{
+    /* border: 1px solid orangered; */
+    /* min-width: 500px; */
+}
+.note-details-view-container p{
+    /* max-width: 400px; */
+    color: #c0c1c5;
+    text-align: justify;
+    margin-top:20px ;
+    font-size: 1em;
+
+}
+.note-image-view-container img{
+    height: 200px;
+    width: 200px;
+}
+
+/* pdf view */
+
+.note-view-bottom-pdf-view{
+    /* border: 1px solid orchid; */
+    /* margin-left: 20px; */
+    width: 75%;
+}
+
+.note-view-bottom-pdf-view iframe{
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    height: 80vh;
+}
+
+.note-image-view-container p, .note-image-view-container h3{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.note-image-view-container{
+    border: 1px solid #475569;
+    padding: 12px;
+    height: auto;
+    border-radius: 8px;
+}

@@ -11,25 +11,22 @@ if (!isset($_COOKIE['user_cookie'])) {
 <html>
 
 <head>
-    <link rel="icon" href="./images/favicon.png" type="image/png" sizes="16x16">
-    <title>forum</title>
+    <title>BCATU | Community</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="../../assets/css/community/communitystyle.css">
     <link rel="stylesheet" href="../../assets/css/header/header.css">
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
     <?php require_once '../../include/header/Header.php'; ?>
     <!-- Blogg section start -->
     <!-- Modal -->
-    <div id="ReplyModal">
+    <div id="ReplyModal" style="display: none">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Reply Question</h4>
@@ -39,18 +36,13 @@ if (!isset($_COOKIE['user_cookie'])) {
                     <form name="frm1" method="post">
                         <input type="hidden" id="commentid" name="Rcommentid">
                         <div class="form-group">
-                            <label for="usr">Write your name:</label>
-                            <input type="text" class="form-control" name="Rname" required>
-                        </div>
-                        <div class="form-group">
                             <label for="comment">Write your reply:</label>
-                            <textarea class="form-control" rows="5" name="Rmsg" required></textarea>
+                            <textarea class="form-control" rows="5" name="Rmsg" placeholder="Reply" required></textarea>
                         </div>
                         <input type="button" id="btnreply" name="btnreply" class="btn btn-primary" value="Reply">
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -61,12 +53,6 @@ if (!isset($_COOKIE['user_cookie'])) {
             <h2>Community forum</h2>
             <form name="frm" method="post">
                 <input type="hidden" id="commentid" name="Pcommentid" value="0">
-                <div class="community-form-inputes">
-                    <label for="name">Write Your name:</label>
-                    <div>
-                        <input type="text" name="name" required>
-                    </div>
-                </div>
                 <div class="community-form-inputes">
                     <label for="comment">Write Your question:</label>
                     <div>
@@ -91,8 +77,7 @@ if (!isset($_COOKIE['user_cookie'])) {
         </div>
     </div>
 
-    </div>
-    <script src="main.js"></script>
+    <!-- </div> -->
 </body>
 
 </html>

@@ -23,7 +23,7 @@ require_once '../../config/pdo_connection.php';
             <div class="about-cols about-col-1">
                 <h1>About Us</h1>
                 <p>BCATU is a platform that provides a wide range of services to students and teachers. It is a platform that is designed to help students and teachers to connect with each other and share their knowledge and experiences.</p>
-                <a href="#about-link">Join Our Community</a>
+                <a href="<?= url('/pages/community/communitypage.php') ?>">Join Our Community</a>
             </div>
             <div class="about-cols about-col-2">
                 <img src="../../assets/images/aboutusimages/about_us.png" alt="About Us">

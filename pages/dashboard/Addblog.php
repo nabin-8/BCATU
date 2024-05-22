@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
+
+if (!isset($_COOKIE['user_cookie'])) {
+    redirect('/pages/auth/Login.php');
+}
+
 $error = '';
 if (isset($_POST['title']) && $_POST['title'] !== '' && isset($_POST['cat_id']) && $_POST['cat_id'] !== '' && isset($_POST['body']) && $_POST['body'] !== '' && isset($_FILES['image']) && $_FILES['image']['name'] !== '') {
 

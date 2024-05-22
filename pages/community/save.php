@@ -1,41 +1,29 @@
 <?php
 require_once '../../config/pdo_connection.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if required fields are set
-    if (isset($_POST['name'], $_POST['question']) || isset($_POST['commentId'], $_POST['replyName'], $_POST['replyMsg'])) {
-        try {
-            // Prepare statement
-            $stmt = $conn->prepare("INSERT INTO community (parent_comment, student, post) VALUES (?, ?, ?)");
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-            // Bind parameters
-            if (isset($_POST['commentId'], $_POST['replyName'], $_POST['replyMsg'])) {
-                $parentId = $_POST['commentId'];
-                $name = $_POST['replyName'];
-                $msg = $_POST['replyMsg'];
-            } else {
-                $parentId = 0;
-                $name = $_POST['name'];
-                $msg = $_POST['question'];
-            }
-            $stmt->bindParam(1, $parentId);
-            $stmt->bindParam(2, $name);
-            $stmt->bindParam(3, $msg);
+header('Content-Type: application/json'); // Ensure JSON response
 
-            // Execute statement
-            $stmt->execute();
+// Retrieve POST parameters
+$id = $_POST['id'] ?? '';
+$user_id = $_COOKIE['user_cookie'] ?? '';
+$msg = $_POST['msg'] ?? '';
 
-            // Provide success response
-            echo json_encode(array("statusCode" => 200));
-        } catch (PDOException $e) {
-            // Provide error response
-            echo json_encode(array("statusCode" => 500, "error" => $e->getMessage()));
-        }
-    } else {
-        // Provide missing parameters error response
-        echo json_encode(array("statusCode" => 400, "error" => "Missing parameters."));
+if ($user_id != "" && $msg != "") {
+    try {
+        $query = "INSERT INTO community_tb (user_id, parent_comment_id, post, created_at) VALUES (?, ?, ?, NOW())";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$user_id, $id, $msg]);
+
+        echo json_encode(array("statusCode" => 200));
+    } catch (PDOException $e) {
+        echo json_encode(array("statusCode" => 500, "error" => $e->getMessage()));
     }
 } else {
-    // Provide method not allowed error response
-    echo json_encode(array("statusCode" => 405, "error" => "Method Not Allowed."));
+    echo json_encode(array("statusCode" => 201, "error" => "Missing parameters."));
 }
+$pdo = null;

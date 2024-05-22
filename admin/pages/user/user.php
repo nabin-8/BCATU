@@ -59,7 +59,7 @@ require_once '../../config/pdo_connection.php';
                                     </td>
                                     <td>
                                         <a class="blog-post-view" href="<?= admin_url('/pages/user/view.php?user_id=') . $user->user_id ?>">View</a>
-                                        <a class="blog-post-edit" href="">Edit</a>
+                                        <a class="blog-post-edit" href="<?= admin_url('/pages/user/edituser.php?user_id=') . $user->user_id ?>">Edit</a>
                                         <a class="blog-post-delete" href="<?= admin_url('/pages/user/deleteuser.php?user_id=') . $user->user_id ?>">Delete</a>
                                     </td>
                                 </tr>

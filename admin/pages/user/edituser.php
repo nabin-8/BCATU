@@ -2,27 +2,59 @@
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the form fields are set and not empty
-    if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['semester']) && isset($_POST['college'])) {
-        // Validate and sanitize user inputs (you may want to add more validation)
-        $name = htmlspecialchars($_POST['name']);
+
+if (isset($_GET['user_id']) && $_GET['user_id'] !== '') {
+    $user_id = $_GET['user_id'];
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
+        $allowedMimes = ['png', 'jpg', 'jpeg', 'gif'];
+        $imageMime = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+        if (in_array($imageMime, $allowedMimes)) {
+            $directory = '../../assets/images/user_profile/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0777, true);
+            }
+
+            $imageUpload = 'assets/images/profile/' . date('Y_m_d_H_i_s') . '.' . $imageMime;
+            $imageFetch = '../../' . $imageUpload;
+            $image_upload = move_uploaded_file($_FILES['image']['tmp_name'], $imageFetch);
+
+            if ($image_upload) {
+                $query = "UPDATE user_tb SET image = ? WHERE user_id = ?";
+                $statement = $pdo->prepare($query);
+                $statement->execute([$imageUpload, $user_id]);
+            }
+        } else {
+            echo "Invalid image format!";
+        }
+    }
+
+    if (isset($_POST['username'], $_POST['email'], $_POST['semester_id'], $_POST['college'])) {
+        $username = htmlspecialchars($_POST['username']);
         $email = htmlspecialchars($_POST['email']);
-        $semester = htmlspecialchars($_POST['semester']);
+        $semester_id = htmlspecialchars($_POST['semester_id']);
         $college = htmlspecialchars($_POST['college']);
 
-        // Update user profile in the database
-        $query = "UPDATE user_tb SET username = ?, email = ?, semester = ?, college = ? WHERE user_id = ?"; // Assuming user_id is the primary key
+        $query = "UPDATE user_tb SET username = ?, email = ?, semester_id = ?, college = ? WHERE user_id = ?";
         $statement = $pdo->prepare($query);
-        $statement->execute([$name, $email, $semester, $college, $_SESSION['user_id']]); // Assuming you have user_id stored in a session variable
-        // Redirect to the profile page or display a success message
-        // header("Location: profile.php");
-        // exit();
+        $statement->execute([$username, $email, $semester_id, $college, $user_id]);
     }
+    admin_redirect('/pages/user/user.php');
 }
 
+$query = "SELECT user_tb.*, semester_tb.semester_name 
+          FROM user_tb 
+          JOIN semester_tb ON user_tb.semester_id = semester_tb.semester_id 
+          WHERE user_tb.user_id = ?";
+$statement = $pdo->prepare($query);
+$statement->execute([$user_id]);
+$user = $statement->fetch();
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,40 +62,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Profile</title>
+    <title>ADMIN | Profile</title>
     <link rel="stylesheet" href="../../assest/admincss/style.css">
     <link rel="stylesheet" href="../../assest/admincss/userprofile.css">
 </head>
 
 <body>
     <!-- top navbar start -->
-    <?php include '../../include/dashboard_includes/header.php'; ?>
+    <?php include '../../include/header.php'; ?>
     <!-- top navbar end -->
     <!--sidebar starts -->
     <section id="left-sidebar-container">
-        <?php include '../../include/dashboard_includes/sidebar.php'; ?>
+        <?php include '../../include/sidebar.php'; ?>
+
         <div id="main-content-container">
-            <div class="user-image-container">
-                <div class="user-edit-image">
-                    <input type="file" name="" id="">
-                    <p>update image</p>
-                </div>
-            </div>
-            <div class="user-profile-details">
-                <div class="user-profile-details-main">
-                    <div class="edit-profile-bottom">
-                        <input type="text" placeholder="Edit Your Name">
-                        <input type="text" placeholder="Email">
+            <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST" enctype="multipart/form-data">
+                <?php if ($user !== false) : ?>
+                    <div class="user-image-container">
+                        <img id="edit-image-profile" src="<?= asset($user->image) ?>" alt="">
+                        <div class="user-edit-image">
+                            <input type="file" name="image">
+                        </div>
                     </div>
-                    <div class="edit-profile-bottom">
-                        <input type="text" placeholder="Semester">
-                        <input type="text" placeholder="Collage">
+                    <div class="user-profile-details">
+                        <div class="user-profile-details-main">
+                            <div class="edit-profile-bottom">
+                                <input type="text" name="username" value="<?= $user->username ?>" placeholder="Edit Your Name">
+                                <input type="text" name="email" value="<?= $user->email ?>" placeholder="Email">
+                            </div>
+                            <div class="edit-profile-bottom">
+                                <select name="semester_id" id="semester-selections">
+                                    <?php
+
+                                    $query = "SELECT * FROM semester_tb;";
+                                    $statement = $pdo->prepare($query);
+                                    $statement->execute();
+                                    $semesters = $statement->fetchAll();
+                                    foreach ($semesters as $semester) : ?>
+                                        <option value="<?= $semester->semester_id ?>" <?= $semester->semester_id === $user->semester_id ? 'selected' : '' ?>>
+                                            <?= $semester->semester_name ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <input type="text" name="college" value="<?= $user->college ?>" placeholder="College">
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-
-            </div>
+                    <div class="user-image-container">
+                        <div class="user-edit-image">
+                            <button type="submit">Update Profile</button>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <section>User not found!</section>
+                <?php endif; ?>
+            </form>
         </div>
+
     </section>
     <!--sidebar end -->
 </body>

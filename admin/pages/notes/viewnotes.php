@@ -1,6 +1,6 @@
 <?php
-require_once 'C:/laragon/www/completeprojectbcatu/config/pdo_connection.php';
-require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
+require_once '../../config/helpers.php';
+require_once '../../config/pdo_connection.php';
 
 
 if (isset($_GET['post_id']) && isset($_GET['tbl'])) {
@@ -55,17 +55,19 @@ $file1 = asset($file1);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes | View</title>
-    <link rel="stylesheet" href="../../../assets/css/notes/note-sec.css">
-    <link rel="stylesheet" href="../../../assets/css/header/header.css">
-    <link rel="stylesheet" href="../../../assets/css/footer/footer.css">
-    <link rel="stylesheet" href="../../../assets/css/notes/note-view.css">
+    <!-- <link rel="stylesheet" href="../../../assets/css/notes/note-sec.css"> -->
+    <link rel="stylesheet" href="../../assest/admincss/note-view.css">
+    <link rel="stylesheet" href="../../assest/admincss/style.css">
+    <link rel="stylesheet" href="../../assest/admincss/userprofile.css">
 </head>
 
 <body>
     <!-- top navbar start -->
-    <?php include 'C:/laragon/www/completeprojectbcatu/include/header/Header.php'; ?>
+    <!-- top navbar start -->
+    <?php include '../../include/header.php'; ?>
     <!-- top navbar end -->
 
+    <!-- sidebar include end -->
     <div class="note-view-wraper-main">
         <div class="note-view-main">
             <div class="note-view-top-section">
@@ -83,9 +85,6 @@ $file1 = asset($file1);
             </div>
         </div>
     </div>
-
-    <!-- footer -->
-    <?php include 'C:/laragon/www/completeprojectbcatu/include/footer/Footer.php'; ?>
 </body>
 
 </html>
