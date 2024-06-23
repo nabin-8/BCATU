@@ -3,6 +3,24 @@ require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
 
 $error = '';
+
+function validate_email($email)
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+function validate_username($username)
+{
+    // Ensure the username is between 3 and 20 characters and contains only letters, numbers, underscores, or hyphens
+    return preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username);
+}
+
+function validate_password($password)
+{
+    // Ensure the password is at least 6 characters long
+    return strlen($password) > 5;
+}
+
 if (
     isset($_POST['email']) && $_POST['email'] !== ''
     && isset($_POST['username']) && $_POST['username'] !== ''
@@ -11,31 +29,45 @@ if (
     && isset($_POST['password']) && $_POST['password'] !== ''
     && isset($_POST['confirm']) && $_POST['confirm'] !== ''
 ) {
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm = $_POST['confirm'];
+    $college = $_POST['college'];
+    $semester_id = $_POST['semester_id'];
 
-    if ($_POST['password'] === $_POST['confirm']) {
-        if (strlen($_POST['password']) > 5) {
+    if (validate_email($email) && validate_username($username) && validate_password($password)) {
+        if ($password === $confirm) {
             $query = "SELECT * FROM user_tb WHERE email = ?;";
             $statement = $pdo->prepare($query);
-            $statement->execute([$_POST['email']]);
+            $statement->execute([$email]);
             $user = $statement->fetch();
+
             if ($user === false) {
-                $query = "INSERT INTO user_tb SET email = ?, username = ?, college = ?,semester_id=?, password = ?, created_at = NOW() ;";
+                $query = "INSERT INTO user_tb SET email = ?, username = ?, college = ?, semester_id = ?, password = ?, created_at = NOW() ;";
                 $statement = $pdo->prepare($query);
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $statement->execute([$_POST['email'], $_POST['username'],  $_POST['college'], $_POST['semester_id'], $password]);
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $statement->execute([$email, $username, $college, $semester_id, $hashed_password]);
                 redirect('/pages/auth/Login.php');
             } else {
                 $error = 'This email already exists';
             }
         } else {
-            $error = 'Password must be more than 5 characters';
+            $error = 'Passwords do not match';
         }
     } else {
-        $error = 'Password does not match the certificate';
+        if (!validate_email($email)) {
+            $error = 'Invalid email format';
+        } elseif (!validate_username($username)) {
+            $error = 'Username must be 3-20 characters long and can contain letters, numbers, underscores, or hyphens';
+        } elseif (!validate_password($password)) {
+            $error = 'Password must be more than 5 characters';
+        }
     }
 } else {
-    if (!empty($_POST))
+    if (!empty($_POST)) {
         $error = 'All fields are required';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -56,25 +88,24 @@ if (
             <div style="color: red;" class="message"><?php if ($error !== '') echo $error; ?></div>
             <form action="<?= url('pages/auth/Registration.php') ?>" method="post">
                 <div class="form-group">
-                    <input type="text" name="username" placeholder="Full Name" class="input-form" />
+                    <input type="text" name="username" placeholder="Full Name" class="input-form" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>" />
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Email Address" class="input-form" />
+                    <input type="email" name="email" placeholder="Email Address" class="input-form" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" />
                 </div>
                 <div class="form-group">
-                    <input type="text" name="college" placeholder="college" class="input-form" />
+                    <input type="text" name="college" placeholder="College" class="input-form" value="<?= isset($_POST['college']) ? htmlspecialchars($_POST['college']) : '' ?>" />
                 </div>
                 <div class="form-group">
                     <select name="semester_id" id="semester-selections">
                         <?php
-
                         $query = "SELECT * FROM semester_tb;";
                         $statement = $pdo->prepare($query);
                         $statement->execute();
                         $semesters = $statement->fetchAll();
 
                         foreach ($semesters as $semester) { ?>
-                            <option value="<?= $semester->semester_id ?>"><?= $semester->semester_name ?></option>
+                            <option value="<?= $semester->semester_id ?>" <?= (isset($_POST['semester_id']) && $_POST['semester_id'] == $semester->semester_id) ? 'selected' : '' ?>><?= $semester->semester_name ?></option>
                         <?php } ?>
                     </select>
                 </div>

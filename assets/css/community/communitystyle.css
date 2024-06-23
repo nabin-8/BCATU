@@ -189,6 +189,7 @@ body{
   width: 30px;
 }
 
-.community-forum-msgs p{
+.community-forum-msgs p, .community-forum-msgs a{
   padding-left: 80px;
+  margin: 2px 0;
 }

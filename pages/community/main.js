@@ -17,51 +17,47 @@ function LoadData() {
         dataType: 'json',
         success: function(data) {
             $('#MyTable tbody').empty();
-            // console.log("Data received:", data);  // Debugging line
-            // console.log($('#MyTable tbody')); // Ensure this is the correct selector
-
             // Loop through each comment
             data.forEach(comment => {
-                // console.log("Comment:", comment); // Debugging line
-				let parent_comment=comment.parent_comment_id;
+                let parent_comment = comment.parent_comment_id;
                 let community_id = comment.community_id;
-				let createdAtDate = new Date(comment.created_at); 
-                let formattedDate = dateFormat.format(createdAtDate);
-				// console.log(parent_comment);
+                let createdAtDate = new Date(comment.created_at); 
+                let formattedDate = createdAtDate.toLocaleDateString(); // Using toLocaleDateString for simplicity
+
                 if (parent_comment == 0) {
                     let row = $(`
                         <tr>
                             <td class="community-forum-msgs">
-								<img src="${asset(comment.image)}" />
+                                <img src="${asset(comment.image)}" />
                                 <b>${comment.username}:</b>
-									<i> ${formattedDate}</i>
+                                <i> ${formattedDate}</i>
                                 </br>
                                 <div>
                                     <p>${comment.post}</p>
-                                    <a data-toggle="modal" data-community_id="${community_id} title="Reply" class="open-ReplyModal" href="#ReplyModal">Reply</a>
-                                    
+                                    <a data-toggle="modal" data-community_id="${community_id}" title="Reply" class="open-ReplyModal" href="#ReplyModal">Reply</a>
                                 </div>
                             </td>
                         </tr>
-                    `); // Debugging line
+                    `);
                     $('#MyTable tbody').append(row);
-                    
+
                     // Loop through to find and display child comments
                     data.forEach(reply => {
-                        if (reply.parent_comment == community_id) {
+                        if (reply.parent_comment_id == community_id) {
+                            let replyCreatedAtDate = new Date(reply.created_at); 
+                            let replyFormattedDate = replyCreatedAtDate.toLocaleDateString(); // Using toLocaleDateString for simplicity
                             let replyRow = $(`
                                 <tr>
-                                    <td style="padding-left:80px">
+                                    <td class="community-forum-msgs" style="padding-left:80px; margin:5px 0; ">
                                         <b>
                                             <img src="${asset(reply.image)}" />
-                                            ${reply.username} :<i> ${reply.formattedDate}:</i>
+                                            ${reply.username} :<i> ${replyFormattedDate}</i>
                                         </b>
                                         </br>
                                         <p>${reply.post}</p>
                                     </td>
                                 </tr>
                             `);
-                            console.log("Child row created:", replyRow); // Debugging line
                             $('#MyTable tbody').append(replyRow);
                         }
                     });
@@ -73,6 +69,7 @@ function LoadData() {
         }
     });
 }
+
 
 $(document).on("click", ".open-ReplyModal", function() {
     let commentid = $(this).data('community_id');
@@ -118,18 +115,16 @@ $(document).ready(function(){
                 },
                 cache: false,
                 success: function(response) {
-                    let dataResult = JSON.parse(response);
-                    // console.log(dataResult.statusCode == 200);
-                    // console.log(id);
-                    // console.log(msg);
+                    let dataResult = response;
+
                     if (dataResult.statusCode == 200) {
                         $("#butsave").removeAttr("disabled");
                         document.forms["frm"]["Pcommentid"].value = "";
                         document.forms["frm"]["msg"].value = "";
                         LoadData();
-                        console.log("Data sent");
+
                     } else if (dataResult.statusCode == 201) {
-                        console.log("Error occurred!");
+                        console.log("Error occurred! Status 201");
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -146,13 +141,12 @@ $(document).ready(function(){
 
 
 // parent reply comment
-$(document).ready(function(){
-    $('#btnreply').on('click', function(){
+// Parent reply comment
+$(document).ready(function() {
+    $('#btnreply').on('click', function() {
         $("#btnreply").attr("disabled", "disabled");
-        // let id = document.forms["frm1"]["Rcommentid"].value;
-        let id = 1;
-        let msg = document.forms["frm1"]["Rmsg"].value;
-        console.log("pass 1");
+        let id = document.forms["frm1"]["Rcommentid"].value;
+        let msg = document.forms["frm1"]["Rmsg"].value;        
         if (msg != "") {
             $.ajax({
                 url: "save.php",
@@ -162,22 +156,20 @@ $(document).ready(function(){
                     msg: msg
                 },
                 cache: false,
-                success: function(response) {
-                    let dataResult = JSON.parse(response);
-                    console.log("pass 2");
-                    console.log(id);
-                    console.log(msg);
-                    console.log(dataResult.statusCode == 200);
-                    if (dataResult.statusCode == 200) {
-                        $("#btnreply").removeAttr("disabled");
-                        console.log("pass 3");
-                        document.forms["frm1"]["Rcommentid"].value = "";
-                        document.forms["frm1"]["Rmsg"].value = "";
-                        LoadData();
-                        hideModel();
-                        console.log("Data sent");
-                    } else if (dataResult.statusCode == 201) {
-                        console.log("Error occurred!");
+                success: function(response) {                    
+                    try {
+                        let dataResult =response                                                                                                
+                        if (dataResult.statusCode == 200) {
+                            $("#btnreply").removeAttr("disabled");                            
+                            document.forms["frm1"]["Rcommentid"].value = "";
+                            document.forms["frm1"]["Rmsg"].value = "";
+                            LoadData();
+                            hideModel();
+                        } else if (dataResult.statusCode == 201) {
+                            console.log("Error occurred!");
+                        }
+                    } catch (e) {
+                        console.error('Failed to parse JSON response: ', e);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -191,3 +183,4 @@ $(document).ready(function(){
         }
     });
 });
+

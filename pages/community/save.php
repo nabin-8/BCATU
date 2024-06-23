@@ -1,15 +1,14 @@
 <?php
 require_once '../../config/pdo_connection.php';
 
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// Suppress errors from being sent to output
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json'); // Ensure JSON response
 
-// Retrieve POST parameters
-$id = $_POST['id'] ?? '';
+$id = (int)($_POST['id'] ?? 0);
 $user_id = $_COOKIE['user_cookie'] ?? '';
 $msg = $_POST['msg'] ?? '';
 

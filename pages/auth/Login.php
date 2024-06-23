@@ -4,38 +4,50 @@ require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
 
 $error = '';
+
+function validate_email($email)
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
 if (
     isset($_POST['email']) && $_POST['email'] !== ''
     && isset($_POST['password']) && $_POST['password'] !== ''
 ) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $query = "SELECT * FROM user_tb WHERE email = ?;";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['email']]);
-    $user = $statement->fetch();
-    if ($user !== false) {
-        if (password_verify($_POST['password'], $user->password)) {
-            $_SESSION['user'] =  $user->email;
-            $is_admin = $user->role;
-            if ($is_admin == 'admin') {
-                redirect('/admin/pages/index.php');
+    if (validate_email($email)) {
+        $query = "SELECT * FROM user_tb WHERE email = ?;";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$email]);
+        $user = $statement->fetch();
+
+        if ($user !== false) {
+            if (password_verify($password, $user->password)) {
+                $_SESSION['user'] =  $user->email;
+                $is_admin = $user->role;
+                if ($is_admin == 'admin') {
+                    redirect('/admin/pages/index.php');
+                } else {
+                    $user_id = $user->user_id;
+                    setcookie("user_cookie", $user_id, time() + (86400 * 30), "/");
+                    redirect('/index.php');
+                }
             } else {
-                $user_id = $user->user_id;
-                setcookie("user_cookie", $user_id, time() + (86400 * 30), "/");
-                // setcookie('user_id', $user_id, time() - 3600 * 24 * 7, '/');
-                redirect('/index.php');
+                $error = 'Password is incorrect';
             }
         } else {
-            $error = 'password is wrong';
+            $error = 'Email is incorrect';
         }
     } else {
-        $error = 'Email is wrong';
+        $error = 'Invalid email format';
     }
 } else {
-    if (!empty($_POST))
+    if (!empty($_POST)) {
         $error = 'All fields are required';
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +68,7 @@ if (
             <div style="color: red;" class="message"><?php if ($error !== '') echo $error; ?></div>
             <form action="<?= url('pages/auth/Login.php') ?>" method="post">
                 <div class="form-group">
-                    <input class="input-form" type="email" name="email" placeholder="Email Address" />
+                    <input class="input-form" type="email" name="email" placeholder="Email Address" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" />
                 </div>
                 <div class="form-group">
                     <input class="input-form" type="password" name="password" placeholder="Password" />
@@ -67,7 +79,6 @@ if (
 
                 <p class="regester">
                     Don't have an account?
-
                     <a class="regester-link" href="Registration.php">Register</a>
                 </p>
             </form>
