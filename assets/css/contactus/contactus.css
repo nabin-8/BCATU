@@ -7,6 +7,8 @@
 body {
     font-family: Poppins-Regular;
     color: white;
+    background: url('../../images/Desktop2.svg');
+    
 }
 
 /* input:focus, textarea:focus {

@@ -51,67 +51,38 @@ function file_upload()
 
 // upload file pdf
 
-// helper function for notes
+// helper function for notes, presentation, lab
 
-function notes_all_required($pdfFetch, $imageFetch, $pdo)
+
+function upload_notes_all_required($pdfFetch, $imageFetch, $noteType, $pdo)
 {
-    $query = "INSERT INTO notes_tb (subject_id, title, description, file_path, image) VALUES (?, ?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch, $imageFetch]);
-    admin_redirect('/pages/notes/notes.php');
+    $table = checkNoteType($noteType);
+    if ($table) {
+        $query = "INSERT INTO $table (subject_id, title, description, file_path, image) VALUES (?, ?, ?, ?, ?)";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch, $imageFetch]);
+        admin_redirect('/pages/notes/notes.php');
+    }
 }
 
-function notes_without_image($pdfFetch, $pdo)
+function upload_notes_without_image($pdfFetch, $noteType, $pdo)
 {
-    $pdfFetch = image_upload();
-    $query = "INSERT INTO notes_tb (subject_id, title, description, file_path) VALUES (?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch]);
-    admin_redirect('/pages/notes/notes.php');
+    $table = checkNoteType($noteType);
+    if ($table) {
+        $query = "INSERT INTO $table (subject_id, title, description, file_path) VALUES (?, ?, ?, ?)";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch]);
+        admin_redirect('/pages/notes/notes.php');
+    }
 }
 
-// helper function for notes
-
-
-// helper function for lab
-
-function lab_all_required($pdfFetch, $imageFetch, $pdo)
+function checkNoteType($noteType)
 {
-    $query = "INSERT INTO lab_tb (subject_id, title, description, file_path, image) VALUES (?, ?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch, $imageFetch]);
-    admin_redirect('/pages/notes/notes.php');
+    $tables = [
+        'note' => 'notes_tb',
+        'presentation' => 'presentation_tb',
+        'lab' => 'lab_tb'
+    ];
+
+    return $tables[$noteType] ?? '';
 }
-
-function lab_without_image($pdfFetch, $pdo)
-{
-    $pdfFetch = image_upload();
-    $query = "INSERT INTO lab_tb (subject_id, title, description, file_path) VALUES (?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch]);
-    admin_redirect('/pages/notes/notes.php');
-}
-
-// helper function for lab
-
-
-// helper function for presentation
-
-function presentation_all_required($pdfFetch, $imageFetch, $pdo)
-{
-    $query = "INSERT INTO presentation_tb (subject_id, title, description, file_path, image) VALUES (?, ?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch, $imageFetch]);
-    admin_redirect('/pages/notes/notes.php');
-}
-
-function presentation_without_image($pdfFetch, $pdo)
-{
-    $pdfFetch = image_upload();
-    $query = "INSERT INTO presentation_tb (subject_id, title, description, file_path) VALUES (?, ?, ?, ?)";
-    $statement = $pdo->prepare($query);
-    $statement->execute([$_POST['subject'], $_POST['title'], $_POST['notebody'], $pdfFetch]);
-    admin_redirect('/pages/notes/notes.php');
-}
-
-// helper function for presentation

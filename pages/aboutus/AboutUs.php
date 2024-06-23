@@ -9,7 +9,7 @@ require_once '../../config/pdo_connection.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | BCATU</title>
+    <title>BCATU | About</title>
     <link rel="stylesheet" href="../../assets/css/footer/footer.css">
     <link rel="stylesheet" href="../../assets/css/header/header.css">
     <link rel="stylesheet" href="../../assets/css/aboutus/aboutus.css">

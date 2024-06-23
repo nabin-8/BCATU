@@ -5,55 +5,30 @@ require_once './notes_helper_functions.php';
 
 $error = '';
 
-if (
-    isset($_POST['title'], $_POST['semester'], $_POST['notestype'], $_POST['subject'], $_POST['notebody'], $_FILES['file_url']['name'], $_FILES['note_image']['name']) &&
-    !empty($_POST['title']) && !empty($_POST['semester']) && !empty($_POST['notestype']) && !empty($_POST['subject']) && !empty($_POST['notebody'])
-) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $requiredFields = ['title', 'semester', 'notestype', 'subject', 'notebody'];
+    $missingFields = array_diff($requiredFields, array_keys(array_filter($_POST)));
 
-    if ($_POST['notestype'] === 'note') {
-        if (isset($_FILES['note_image']['name']) && !empty($_FILES['note_image']['name'])) {
-            $imageFetch = image_upload();
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false && $image_upload !== false) {
-                notes_all_required($pdfFetch, $imageFetch, $pdo);
-            }
-        } else {
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false) {
-                notes_without_image($pdfFetch, $pdo);
-            }
-        }
-    } elseif ($_POST['notestype'] === 'lab') {
-        if (isset($_FILES['note_image']['name']) && !empty($_FILES['note_image']['name'])) {
-            $imageFetch = image_upload();
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false && $image_upload !== false) {
-                lab_all_required($pdfFetch, $imageFetch, $pdo);
-            }
-        } else {
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false) {
-                lab_without_image($pdfFetch, $pdo);
-            }
-        }
-    } elseif ($_POST['notestype'] === 'presentation') {
-        if (isset($_FILES['note_image']['name']) && !empty($_FILES['note_image']['name'])) {
-            $imageFetch = image_upload();
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false && $image_upload !== false) {
-                presentation_all_required($pdfFetch, $imageFetch, $pdo);
-            }
-        } else {
-            $pdfFetch = file_upload();
-            if ($pdf_upload !== false) {
-                presentation_without_image($pdfFetch, $pdo);
-            }
-        }
+    if (!empty($missingFields)) {
+        $error = "All Fields are required";
     } else {
-        $error = "Note Type is Not Selected";
+        $noteType = $_POST['notestype'];
+        if (in_array($noteType, ['note', 'lab', 'presentation'])) {
+            $pdfFetch = file_upload();
+            if ($pdfFetch !== '') {
+                if (!empty($_FILES['note_image']['name'])) {
+                    $imageFetch = image_upload();
+                    if ($imageFetch !== '') {
+                        upload_notes_all_required($pdfFetch, $imageFetch, $noteType, $pdo);
+                    }
+                } else {
+                    upload_notes_without_image($pdfFetch, $noteType, $pdo);
+                }
+            }
+        } else {
+            $error = "Note Type is Not Selected";
+        }
     }
-} else {
-    $error = "All Fields are required";
 }
 ?>
 

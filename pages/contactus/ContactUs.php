@@ -9,7 +9,7 @@ require_once '../../config/pdo_connection.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BCATU | Contact Us</title>
     <link rel="stylesheet" href="../../assets/css/header/header.css">
     <link rel="stylesheet" href="../../assets/css/footer/footer.css">
     <link rel="stylesheet" href="../../assets/css/contactus/contactus.css">
@@ -25,7 +25,9 @@ require_once '../../config/pdo_connection.php';
                 <div class="contact-desc">
                     Need to get in touch with us? Either fill out the form
                     with your inquiry or find the
-                    <a href="#contact-email-here" class="contact-email-link">department email</a>
+                    <a href="#contact-email-here" class="contact-email-link">
+                        <t style="color: #9CA3AF;  text-decoration:none; ">department email</t>
+                    </a>
                     you'd like to contact below.
                 </div>
             </div>

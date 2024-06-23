@@ -23,10 +23,10 @@ require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
     <section class="notes-container-wraper">
         <div class="notes-section-left-wraper">
             <div class="notes-section-left-contents">
-                <input type="text" placeholder="Search notes,labes..." name="" id="">
+                <input type="text" placeholder="Search notes,labes..." name="searchnotes" id="searchnotes">
             </div>
             <div class="notes-section-left-contents">
-                <select name="semester" id="semester">
+                <!-- <select name="semester" id="semester">
                     <option value="">Select Semester</option>
                     <?php
                     $query = "SELECT * FROM semester_tb;";
@@ -37,7 +37,7 @@ require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
                         <option value="<?= $semester->semester_id ?>"> <?= $semester->semester_name ?>
                         </option>
                     <?php endforeach; ?>
-                </select>
+                </select> -->
             </div>
             <div class="notes-section-left-contents">
                 <select name="notetype" id="notetype">
@@ -47,11 +47,11 @@ require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
                     <option value="presentation_tb">Presentation</option>
                 </select>
             </div>
-            <div class="notes-section-left-contents">
+            <!-- <div class="notes-section-left-contents">
                 <select name="subject" id="subject">
                     <option value="">Select Subject</option>
                 </select>
-            </div>
+            </div> -->
         </div>
         <!-- notes section right bottom -->
         <div class="notes-section-right-bottom-wraper">

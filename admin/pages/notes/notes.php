@@ -79,7 +79,7 @@ require_once '../../config/pdo_connection.php';
                                     <td><?= $note->subject_name ?></td>
                                     <td>
                                         <a class="blog-post-view" href="<?= $url ?>">View</a>
-                                        <a class="blog-post-edit" href="">Edit</a>
+                                        <a class="blog-post-edit" href="<?= admin_url('/pages/notes/editnotes.php?post_id=' . $noteId . '&tbl=' . $table) ?>">Edit</a>
                                         <a class="blog-post-delete" href="<?= admin_url('/pages/notes/deletenotes.php?post_id=' . $noteId . '&tbl=' . $table) ?>">Delete</a>
                                     </td>
                                 </tr>

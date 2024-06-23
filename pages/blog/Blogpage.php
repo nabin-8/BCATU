@@ -35,16 +35,17 @@ require_once '../../config/pdo_connection.php';
 
             if ($blogs) { ?>
                 <div class="main-blog-container">
-                    <?php foreach ($blogs as $blog) { ?>
+                    <?php foreach ($blogs as $blog) {
+                        $vewUrl = blog_url('/viewblogs.php?post_id=') . $blog->blog_id; ?>
                         <article>
-                            <h2><a href="#"><?= $blog->title ?></a></h2>
+                            <h2><a href="<?= $vewUrl ?>"><?= $blog->title ?></a></h2>
                             <p><?= substr($blog->body, 0, 80) ?></p>
                             <div class="blog-bottom-container">
                                 <div>
                                     <img src="<?= asset($blog->userimage) ?>" alt="<?= $blog->username ?> image">
                                     <span><?= $blog->username ?></span>
                                 </div>
-                                <a href="<?= blog_url('/viewblogs.php?post_id=') . $blog->blog_id ?>">Read More</a>
+                                <a href="<?= $vewUrl ?>">Read More</a>
                             </div>
                         </article>
                     <?php } ?>
