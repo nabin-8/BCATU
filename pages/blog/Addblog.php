@@ -68,6 +68,7 @@ if (
                     </div>
                     <div class="blog-catogery-container">
                         <select class="same-inputs" name="cat_id" id="cato-selection">
+                            <option value="">Select Category</option>
                             <?php
 
                             $query = "SELECT * FROM blog_categories_tb;"; // Changed table name

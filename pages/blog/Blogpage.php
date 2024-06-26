@@ -14,6 +14,8 @@ require_once '../../config/pdo_connection.php';
     <link rel="stylesheet" href="../../assets/css/blog/viewblog.css">
     <link rel="stylesheet" href="../../assets/css/header/header.css">
     <link rel="stylesheet" href="../../assets/css/footer/footer.css">
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="./Search_Blogs.js"></script>
 </head>
 
 <body>
@@ -23,6 +25,31 @@ require_once '../../config/pdo_connection.php';
         <div class="blog-container">
             <div class="title">
                 <h1>BLOGS</h1>
+            </div>
+            <div class="blog-categories-container">
+                <?php
+                $query = "SELECT c.blog_cat_id, c.name
+                        FROM blog_categories_tb c
+                        WHERE EXISTS (
+                            SELECT 1
+                            FROM blogs_tb b
+                            WHERE b.cat_id = c.blog_cat_id
+                            AND b.status = 10)
+                        ";
+                $statement = $pdo->prepare($query);
+                $statement->execute();
+                $blogs_cat = $statement->fetchAll();
+
+                // echo "<pre>";
+                // print_r($blogs_cat);
+                if ($blogs_cat) { ?>
+                    <div class="blog-categories-main-container">
+                        <?php foreach ($blogs_cat as $blog_cat) { ?>
+                            <button class="blog-categories-buttons" data-category="<?= $blog_cat->name ?>">
+                                <?= $blog_cat->name ?></button>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
             </div>
             <?php
             $query = "SELECT blogs_tb.*, user_tb.username, user_tb.image AS userimage 

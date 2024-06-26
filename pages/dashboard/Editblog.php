@@ -87,7 +87,7 @@ if (
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BCATU | Edit Blogs</title>
+    <title>BCATU | Update Blogs</title>
     <link rel="stylesheet" href="../../assets/css/dashboard/user.css">
     <link rel="stylesheet" href="../../assets/css/blog/blogcss.css">
     <link rel="stylesheet" href="../../assets/css/blog/addblog.css">
@@ -110,6 +110,7 @@ if (
                     </div>
                     <div class="blog-catogery-container">
                         <select class="same-inputs" name="cat_id" id="cato-selection">
+                            <option value="">Select Category</option>
                             <?php
                             $query = "SELECT * FROM blog_categories_tb";
                             $statement = $pdo->prepare($query);
@@ -135,7 +136,7 @@ if (
                         <input class="body-image-content same-inputs" type="file" name="image" id="image">
                     </div>
                     <div class="add-btn">
-                        <button type="submit">Add Post</button>
+                        <button type="submit">Update Post</button>
                     </div>
                 </div>
             </form>

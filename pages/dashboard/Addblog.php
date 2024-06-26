@@ -64,6 +64,7 @@ if (isset($_POST['title']) && $_POST['title'] !== '' && isset($_POST['cat_id']) 
                     </div>
                     <div class="blog-catogery-container">
                         <select class="same-inputs" name="cat_id" id="cato-selection">
+                            <option value="">Select Category</option>
                             <?php
                             $query = "SELECT * FROM blog_categories_tb;";
                             $statement = $pdo->prepare($query);
