@@ -110,3 +110,26 @@ body {
     border: 1px solid #000;
     border-radius: 5px;
 }
+
+
+.failed,
+.success
+{
+    width: 400px;
+    border-radius: 4px;
+    text-align: center;
+    position:absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 8px 0;
+}
+
+.failed{
+    background-color: #b91c1c;
+}
+
+.success{
+    background-color: #15803d;
+}
