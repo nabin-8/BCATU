@@ -6,12 +6,14 @@ require_once '../../config/pdo_connection.php';
 if (isset($_GET['post_id']) && isset($_GET['tbl'])) {
     $post_id = urldecode($_GET['post_id']);
     $tbl_name = urldecode($_GET['tbl']);
-    $tbl_id = $tbl_name . '_id';
-    $tbl_name = $tbl_name . '_tb';
-    if ($tbl_name == 'note_tb') {
-        $tbl_name = 'notes_tb';
-        $tbl_id = 'notes_id';
-    }
+    $tbl_id = str_replace('_tb', '_id', $tbl_name);
+
+//    $tbl_id = $tbl_name . '_id';
+//    $tbl_name = $tbl_name . '_tb';
+//    if ($tbl_name == 'note_tb') {
+//        $tbl_name = 'notes_tb';
+//        $tbl_id = 'notes_id';
+//    }
 
     $query = "
     SELECT 

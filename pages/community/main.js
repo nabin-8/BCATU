@@ -10,6 +10,12 @@ const dateFormat=new Intl.DateTimeFormat("en-us",{
 
 let myVar = setInterval(LoadData, 2000);
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
 function LoadData() {
     $.ajax({
         url: 'view.php',
@@ -21,20 +27,19 @@ function LoadData() {
             data.forEach(comment => {
                 let parent_comment = comment.parent_comment_id;
                 let community_id = comment.community_id;
-                let createdAtDate = new Date(comment.created_at); 
-                let formattedDate = createdAtDate.toLocaleDateString(); // Using toLocaleDateString for simplicity
+                let createdAtDate = comment.created_at;
 
                 if (parent_comment == 0) {
                     let row = $(`
-                        <tr>
+                        <tr >
                             <td class="community-forum-msgs">
                                 <img src="${asset(comment.image)}" />
                                 <b>${comment.username}:</b>
-                                <i> ${formattedDate}</i>
+                                <i> ${formatDate(createdAtDate)}</i>
                                 </br>
                                 <div>
                                     <p>${comment.post}</p>
-                                    <a data-toggle="modal" data-community_id="${community_id}" title="Reply" class="open-ReplyModal" href="#ReplyModal">Reply</a>
+                                    <a data-toggle="modal" data-community_id="${community_id}" title="Reply"  class="open-ReplyModal" href="#ReplyModal">Reply</a>
                                 </div>
                             </td>
                         </tr>
@@ -44,14 +49,13 @@ function LoadData() {
                     // Loop through to find and display child comments
                     data.forEach(reply => {
                         if (reply.parent_comment_id == community_id) {
-                            let replyCreatedAtDate = new Date(reply.created_at); 
-                            let replyFormattedDate = replyCreatedAtDate.toLocaleDateString(); // Using toLocaleDateString for simplicity
+                            let replyCreatedAtDate = reply.created_at;
                             let replyRow = $(`
                                 <tr>
                                     <td class="community-forum-msgs" style="padding-left:80px; margin:5px 0; ">
                                         <b>
                                             <img src="${asset(reply.image)}" />
-                                            ${reply.username} :<i> ${replyFormattedDate}</i>
+                                            ${reply.username} :<i style="font-size: 12px" > ${formatDate(replyCreatedAtDate)}</i>
                                         </b>
                                         </br>
                                         <p>${reply.post}</p>
@@ -140,7 +144,6 @@ $(document).ready(function(){
 });
 
 
-// parent reply comment
 // Parent reply comment
 $(document).ready(function() {
     $('#btnreply').on('click', function() {
@@ -183,4 +186,3 @@ $(document).ready(function() {
         }
     });
 });
-

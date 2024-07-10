@@ -52,7 +52,6 @@ $statement = $pdo->prepare($query);
 $user_id = $_COOKIE['user_cookie'];
 $statement->execute([$user_id]);
 $user = $statement->fetch();
-
 ?>
 
 

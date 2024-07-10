@@ -1,6 +1,6 @@
 <?php
-require_once 'file:///C:/laragon/www/completeprojectbcatu/config/pdo_connection.php';
-require_once 'file:///C:/laragon/www/completeprojectbcatu/config/helpers.php';
+require_once 'file:///C:/laragon/www/BCATU/config/pdo_connection.php';
+require_once 'file:///C:/laragon/www/BCATU/config/helpers.php';
 ?>
 
 <!DOCTYPE html>

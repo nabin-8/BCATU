@@ -1,5 +1,5 @@
 <?php
-require_once 'C:/laragon/www/completeprojectbcatu/config/pdo_connection.php';
+require_once 'C:/laragon/www/BCATU/config/pdo_connection.php';
 
 if (isset($_POST['semester_id'])) {
     $semesterId = $_POST['semester_id'];

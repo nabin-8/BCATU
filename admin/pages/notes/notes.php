@@ -41,21 +41,21 @@ require_once '../../config/pdo_connection.php';
                         </thead>
                         <tbody id="blog-container-body">
                             <?php
-                            $query = "SELECT 'note' AS type, notes_tb.notes_id AS id, notes_tb.image, notes_tb.title, notes_tb.description, subject_tb.subject_name, semester_tb.semester_name
+                            $query = "SELECT 'notes_tb' AS type, notes_tb.notes_id AS id, notes_tb.image, notes_tb.title, notes_tb.description, subject_tb.subject_name, semester_tb.semester_name
                             FROM notes_tb
                             INNER JOIN subject_tb ON notes_tb.subject_id = subject_tb.subject_id
                             INNER JOIN semester_tb ON subject_tb.semester_id = semester_tb.semester_id
         
                             UNION ALL
         
-                            SELECT 'lab' AS type, lab_tb.lab_id AS id, lab_tb.image, lab_tb.title, lab_tb.description, subject_tb.subject_name, semester_tb.semester_name
+                            SELECT 'lab_tb' AS type, lab_tb.lab_id AS id, lab_tb.image, lab_tb.title, lab_tb.description, subject_tb.subject_name, semester_tb.semester_name
                             FROM lab_tb
                             INNER JOIN subject_tb ON lab_tb.subject_id = subject_tb.subject_id
                             INNER JOIN semester_tb ON subject_tb.semester_id = semester_tb.semester_id
         
                             UNION ALL
         
-                            SELECT 'presentation' AS type, presentation_tb.presentation_id AS id, presentation_tb.image, presentation_tb.title, presentation_tb.description, subject_tb.subject_name, semester_tb.semester_name
+                            SELECT 'presentation_tb' AS type, presentation_tb.presentation_id AS id, presentation_tb.image, presentation_tb.title, presentation_tb.description, subject_tb.subject_name, semester_tb.semester_name
                             FROM presentation_tb
                             INNER JOIN subject_tb ON presentation_tb.subject_id = subject_tb.subject_id
                             INNER JOIN semester_tb ON subject_tb.semester_id = semester_tb.semester_id ";

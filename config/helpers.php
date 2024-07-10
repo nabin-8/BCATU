@@ -1,11 +1,11 @@
 <?php
 
 //config
-define('BASE_URL', 'http://localhost/completeprojectbcatu');
-define('BLOG_URL', 'http://localhost/completeprojectbcatu/pages/blog');
-define('CSS_URL', 'http://localhost/completeprojectbcatu/assetes/css');
-define('ADMIN_URL', 'http://localhost/completeprojectbcatu/admin');
-define('NOTES_URL', 'http://localhost/completeprojectbcatu/pages/notes');
+define('BASE_URL', 'http://localhost/BCATU');
+define('BLOG_URL', 'http://localhost/BCATU/pages/blog');
+define('CSS_URL', 'http://localhost/BCATU/assetes/css');
+define('ADMIN_URL', 'http://localhost/BCATU/admin');
+define('NOTES_URL', 'http://localhost/BCATU/pages/notes');
 
 function redirect($url)
 {

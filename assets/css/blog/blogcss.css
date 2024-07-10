@@ -77,6 +77,10 @@ article p{
 
 }
 
+.user-usernames{
+  color: white !important;
+  text-decoration: none;
+}
 
   /* Blogg content end here */
 

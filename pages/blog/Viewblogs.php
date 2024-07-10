@@ -14,6 +14,7 @@ require_once '../../config/pdo_connection.php';
     <link rel="stylesheet" href="../../assets/css/blog/viewblog.css">
     <link rel="stylesheet" href="../../assets/css/header/header.css">
     <link rel="stylesheet" href="../../assets/css/footer/footer.css">
+    <link rel="stylesheet" type="text/css" href="<?= url('/assets/fonts/dynamic_fonts.php') ?>">
 </head>
 
 <body>
@@ -33,14 +34,20 @@ require_once '../../config/pdo_connection.php';
             $blog = $statement->fetch();
             if ($blog !== false) {
             ?>
-                <!-- Image container -->
-                <div id="view-img-container">
-                    <img src="<?= asset($blog->image) ?>" alt="" srcset="">
+                <div class="view-blog-description">
+                    <h1 id="view-blogg-title"><?= $blog->title ?></h1>
+                    <div id="view-blogg-dates-user-container">
+                        <span><?= date("Y F j", strtotime($blog->created_at)) ?></span>
+                    </div>
                 </div>
+
 
                 <!-- Description section -->
                 <div class="view-blog-description">
-                    <h1 id="view-blogg-title"><?= $blog->title ?></h1>
+                    <!-- Image container -->
+                    <div id="view-img-container">
+                        <img src="<?= asset($blog->image) ?>" alt="" srcset="">
+                    </div>
                     <div class="view-blogg-description">
                         <p><?= $blog->body ?></p>
                     </div>

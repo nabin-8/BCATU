@@ -10,8 +10,8 @@ $(document).ready(function() {
             data: { category: category },
             success: function(response) {
                 $('.main-blog-container').html(response);
-                console.log(response);
-                console.log("hello");
+                // console.log(response);
+                // console.log("hello");
             }
         });
     });

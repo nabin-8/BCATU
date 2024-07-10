@@ -28,6 +28,7 @@ if (
                 $_SESSION['user'] =  $user->email;
                 $is_admin = $user->role;
                 if ($is_admin == 'admin') {
+                    $_SESSION['is_admin'] = true;
                     redirect('/admin/pages/index.php');
                 } else {
                     $user_id = $user->user_id;

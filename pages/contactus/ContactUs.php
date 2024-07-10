@@ -31,7 +31,7 @@ if (isset($_POST['send'])) {
         $errors += 1;
     }
 
-    // Validate last name (optional)
+    // Validate last name 
     if (!empty($lname) && !preg_match("/^[a-zA-Z\s]+$/", $lname)) {
         $errLname = "Last name can only contain letters and spaces.";
         $errors += 1;

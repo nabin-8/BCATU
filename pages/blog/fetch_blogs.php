@@ -24,14 +24,15 @@ if (isset($_POST['category'])) {
     if ($blogs) { ?>
 
         <?php foreach ($blogs as $blog) {
-            $vewUrl = blog_url('/viewblogs.php?post_id=') . $blog->blog_id; ?>
+            $vewUrl = blog_url('/viewblogs.php?post_id=') . $blog->blog_id;
+            $user_blog_id = blog_url('/userblogs.php?post_id=') . $blog->user_id;?>
             <article>
                 <h2><a href="<?= $vewUrl ?>"><?= $blog->title ?></a></h2>
                 <p><?= substr($blog->body, 0, 80) ?></p>
                 <div class="blog-bottom-container">
                     <div>
                         <img src="<?= asset($blog->userimage) ?>" alt="<?= $blog->username ?> image">
-                        <span><?= $blog->username ?></span>
+                        <a class="user-usernames" href="<?= $user_blog_id ?>"><span><?= $blog->username ?></span></a>
                     </div>
                     <a href="<?= $vewUrl ?>">Read More</a>
                 </div>

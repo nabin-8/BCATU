@@ -1,6 +1,7 @@
 <?php
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
+
 ?>
 
 <!DOCTYPE html>

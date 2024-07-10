@@ -88,7 +88,7 @@ if (
             <div style="color: red;" class="message"><?php if ($error !== '') echo $error; ?></div>
             <form action="<?= url('pages/auth/Registration.php') ?>" method="post">
                 <div class="form-group">
-                    <input type="text" name="username" placeholder="Full Name" class="input-form" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>" />
+                    <input type="text" name="username" placeholder="Username" class="input-form" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>" />
                 </div>
                 <div class="form-group">
                     <input type="email" name="email" placeholder="Email Address" class="input-form" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" />
@@ -98,6 +98,7 @@ if (
                 </div>
                 <div class="form-group">
                     <select name="semester_id" id="semester-selections">
+                        <option value="">Select Semester</option>
                         <?php
                         $query = "SELECT * FROM semester_tb;";
                         $statement = $pdo->prepare($query);

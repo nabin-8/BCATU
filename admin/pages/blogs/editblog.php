@@ -38,14 +38,14 @@ if (
             $imageMime = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             if (in_array($imageMime, $allowedMimes)) {
                 // Define directory and create if not exists
-                $directory = 'C:/laragon/www/completeprojectbcatu/assets/images/blogimages/';
+                $directory = 'C:/laragon/www/BCATU/assets/images/blogimages/';
                 if (!file_exists($directory)) {
                     mkdir($directory, 0777, true); // Ensure permissions are set correctly
                 }
 
                 // Generate unique filename and move uploaded file
                 $imageUpload = '/assets/images/blogimages/' . date('Y_m_d_H_i_s') . '.' . $imageMime;
-                $imageFetch = 'C:/laragon/www/completeprojectbcatu' . $imageUpload;
+                $imageFetch = 'C:/laragon/www/BCATU' . $imageUpload;
                 $image_upload = move_uploaded_file($_FILES['image']['tmp_name'], $imageFetch);
 
                 // Update database if image uploaded successfully

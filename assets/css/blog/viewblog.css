@@ -3,7 +3,7 @@ body{
 }
 
 .view-blogs-section{
-    margin: 5% 0;
+    margin-bottom: 5%;
     /* border: 1px solid wheat; */
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@ body{
     height: 450px;
     border-radius: 11px;
     width: 800px;
-    object-fit: scale-down;
+    object-fit:cover;
     opacity: 0.7;
 }
 
@@ -27,21 +27,30 @@ body{
     width: 800px;
     /* border: 1px solid #475569; */
     border-radius: 4px;
-    margin: 40px 0;
-    color: #a6adb9;
+    margin: 80px 0;
+    color: white;
 }
 
 .view-blog-description #view-blogg-title{
     text-align: center;
+    font-family: Roboto;
 }
 
 .view-blogg-description p{
-    color: #6b7280;
+    color: #aaaeb8;
     font-size: 18px;
+    line-height: 1.6;
     margin: 20px 0;
     font-weight: 300;
     text-align: justify;
     text-justify: inter-word;
+}
+
+#view-blogg-dates-user-container{
+    /*border: 1px solid white;*/
+    display: flex;
+    justify-content:flex-end;
+    margin-top: 12px;
 }
 
 /* responsive */

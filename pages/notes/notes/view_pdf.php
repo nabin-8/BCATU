@@ -1,5 +1,5 @@
 <?php
-require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
+require_once 'C:/laragon/www/BCATU/config/helpers.php';
 if (isset($_GET['file'])) {
     $file1 = urldecode($_GET['file']);
 

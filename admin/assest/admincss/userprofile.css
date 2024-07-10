@@ -58,7 +58,7 @@
     padding: 12px;
 }
 
-.edit-profile-bottom input{
+.edit-profile-bottom input, #semester-selections{
     height: 38px;
     width: 300px;
     border: none;

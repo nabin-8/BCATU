@@ -12,7 +12,7 @@ try {
     LEFT JOIN 
         user_tb u ON c.user_id = u.user_id
     ORDER BY 
-        c.parent_comment_id DESC";
+        c.parent_comment_id DESC ";
 
     $statement = $pdo->prepare($query);
     $statement->execute(); // Execute the query

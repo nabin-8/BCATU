@@ -1,6 +1,6 @@
 <?php
-require_once 'C:/laragon/www/completeprojectbcatu/config/pdo_connection.php';
-require_once 'C:/laragon/www/completeprojectbcatu/config/helpers.php';
+require_once 'C:/laragon/www/BCATU/config/pdo_connection.php';
+require_once 'C:/laragon/www/BCATU/config/helpers.php';
 
 
 if (isset($_GET['post_id']) && isset($_GET['tbl'])) {

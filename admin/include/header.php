@@ -1,6 +1,13 @@
 <?php
 require_once '../../config/helpers.php';
 require_once '../../config/pdo_connection.php';
+session_start();
+
+if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+    // Redirect to login page if admin session does not exist
+    redirect('/pages/auth/Login.php');
+    exit();
+}
 ?>
 
 <!-- top navbar start -->

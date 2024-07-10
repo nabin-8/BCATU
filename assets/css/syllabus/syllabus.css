@@ -10,10 +10,10 @@
     margin: 12px 0;
 }
 .syllabus-title h2{
-    color: #929bad;
+    color: #cbd5e1;
 }
 .syllabus-title p{
-    color: #929bad;
+    color: #94a3b8;
     text-align: justify;
     font-size: 18px;
     margin: 20px 0;
@@ -36,7 +36,7 @@
 }
 .table-content,td{
     border: 1px solid #1F2937;
-    color: #929bad;
+    color: #94a3b8;
     border-radius: 8px;
 }
 .table-content{

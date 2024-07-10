@@ -13,7 +13,7 @@ function image_upload()
         return false;
     }
     $imageFetch = '/assets/images/notes/' . date('Y_m_d_H_i_s') . '.' . $imageMime;
-    $imageUpload = 'C:/laragon/www/completeprojectbcatu' . $imageFetch;
+    $imageUpload = 'C:/laragon/www/BCATU' . $imageFetch;
 
     $image_upload = move_uploaded_file($_FILES['note_image']['tmp_name'], $imageUpload);
     if (!$image_upload) {
@@ -39,7 +39,7 @@ function file_upload()
     }
 
     $pdfFetch = '/assets/uploads/' . date('Y_m_d_H_i_s') . '.' . $imageMime;
-    $pdfUpload = 'C:/laragon/www/completeprojectbcatu' . $pdfFetch;
+    $pdfUpload = 'C:/laragon/www/BCATU' . $pdfFetch;
     $pdf_upload = move_uploaded_file($_FILES['file_url']['tmp_name'], $pdfUpload);
     if (!$pdf_upload) {
         $error = 'Failed to upload file';
