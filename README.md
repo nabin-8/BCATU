@@ -1,3 +1,4 @@
+# Project I
 ## BCATU (E-Learning Platform)
 
 #### Three Main Features provided by the website:
@@ -14,7 +15,7 @@
 
 ![homepage](./assets/images/githubimages/login.png)
 
-#### Login Page
+#### Registration Page
 
 ![homepage](./assets/images/githubimages/registration.png)
 
